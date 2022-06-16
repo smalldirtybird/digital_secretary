@@ -20,17 +20,15 @@ def detect_intent_text(project_id, session_id, text, language_code):
         return response.query_result.fulfillment_text
 
 
-def answer(vk_event, vk_api):
-    intent = detect_intent_text(project_id=df_project_id,
-                                session_id=df_session_id,
+def answer(event, api):
+    intent = detect_intent_text(project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
+                                session_id=os.environ['DIALOGFLOW_SESSION_ID'],
                                 text=vk_event.text,
                                 language_code='ru_RU')
     if intent:
-        vk_api.messages.send(
-            user_id=vk_event.user_id,
-            message=intent,
-            random_id=random.randint(1, 1000)
-        )
+        api.messages.send(user_id=event.user_id,
+                          message=intent,
+                          random_id=random.randint(1, 1000))
 
 
 if __name__ == '__main__':
@@ -41,10 +39,8 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
     load_dotenv()
     vk_session = vk_api.VkApi(token=os.environ['VK_GROUP_TOKEN'])
-    df_project_id = os.environ['DIALOGFLOW_PROJECT_ID']
-    df_session_id = os.environ['DIALOGFLOW_SESSION_ID']
     vk_api = vk_session.get_api()
     longpoll = VkLongPoll(vk_session)
-    for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            answer(event, vk_api)
+    for vk_event in longpoll.listen():
+        if vk_event.type == VkEventType.MESSAGE_NEW and vk_event.to_me:
+            answer(vk_event, vk_api)

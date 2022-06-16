@@ -24,8 +24,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    intent = detect_intent_text(project_id=df_project_id,
-                                session_id=df_session_id,
+    intent = detect_intent_text(project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
+                                session_id=os.environ['DIALOGFLOW_SESSION_ID'],
                                 text=update.message.text,
                                 language_code='ru_RU')
     await update.message.reply_text(intent)
@@ -35,13 +35,12 @@ if __name__ == '__main__':
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.INFO
-    )
+        )
     logger = logging.getLogger(__name__)
     load_dotenv()
     tg_bot_token = os.environ['TELEGRAM_BOT_TOKEN']
-    df_project_id = os.environ['DIALOGFLOW_PROJECT_ID']
-    df_session_id = os.environ['DIALOGFLOW_SESSION_ID']
     application = Application.builder().token(tg_bot_token).build()
     application.add_handler(CommandHandler('start', start))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, answer))
+    application.add_handler(MessageHandler(
+        filters.TEXT & ~filters.COMMAND, answer))
     application.run_polling()
