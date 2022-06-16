@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "digital-smart-secretary-fnij",
+  "private_key_id": "fa6e910d2e9bf5104e73691095f9458efe6c5e9c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCrAFDSO0LtONIB\nLLMRu3/3xZrJeGtfdzlmS5A12G2Qvc+smEXESvQw8MmkFjQT4K4jzk/7jBv5cSIe\nUn6KoIEMGVGSAtllF2/11cOR/JbLIOCBvARJPm/EYw+xNsOxF3EZ1l+rHUmTOAn+\nOkjLdUv0Yo4uLaac5JfQARMtCdFCW6FYFmnkf2P9XCpSkKlEsbAN2bM2cPy4MV2E\na8llG3f/vLGSc3xRj2PxaL0T1HYB9BOTlInVkMjgLGnsPZhYcz3bEh4CfVGGRv1R\nx/aGPdAIQIfFwjGwvPJMC7WXULNccAbMpnvNxOIqFY43OvNx8alTvppr9M5dX8yw\n9lw3X0h/AgMBAAECggEAGgZERpqKRvwcydz5q7szcIv8UKko/jBw5eaeHfPASQT6\nNDRAee1GWKRsq7JNXrEVD5H4jjn2j/Ht1VuMsqBWw3ae+W/BkicM/Qb5aqBcerGY\nOWZZ6KO98s94tem1wp/ksJ/1k18zsVoX+z73kS9azeip5tE/yCTqDdf8CSCzXju/\n48bj4PkEpVAQZ5sMYTT44nDgLx6xfVCHiWEckTilW4gtnPJuffh4Wbc1FmQanS4g\ncmDyhpW/CvNF25fvytvmlxr0jV4WduXXRiElxW63AiuevPm/LjfQK1BrZKRGtI2X\n9EgnKQiswKzl3tIq0FFfSVh59wDb2gYJE4rrwhl5kQKBgQDiHnxWS5p2mOcmjsa+\nI5SCI/o99h5OzywaiMPKsjZrTagVGeWLMV+A2MxTfUFcAwEyFUzfmIBiZ8gTnQHQ\na3bnoGG/9jHz9rtVPjIFyqIF5DwYS5XmOeRRu2Pu7r29VnMueOkkkoXcy35v9K/+\nNARbEuzy7PuS2S+Famp1vjoMvQKBgQDBmTdR3kYppj+VdSjv5ZVziWxnVwqKSNwS\nA2QVBTPU5D7HJsdzJKDdIv3fxKQ4m+hQ0pXFdQ/YXIKAH8FdzI0COM0fdtijtVGy\nWA3BVlCtbC0ReGpNNeJEmQ8XlYmvugGoSDz4VjNSilXb/uJjZB1C49wyAc0qmuGB\nMMf6d5Lj6wKBgQDCitoM4NUPTnQpX1OsiS4fXdbR8muXAHWAisRxIyzg2xpOtU4h\nmKQDVgNNnYlbIZaowVy3Txy+DW49Oasy5xKRLBKNtsK5lEEOkQk2pGULzpbJjFZ2\nkr5Wd3P+QNdsC/HjPNHRzmJvWYD5z7qPaa+Jr9m/E5dKe6OAFNNtY/HLvQKBgAGR\njzwvk9v0h+FbIKjI8GwOOf2gW+qA6p+OvXnaH/BipQuSCd2p90+zX+E3Q6ldwgUd\nn68I4sb7AOeu2i87YA0bjrXpjZnN90p9oibl3yN4k+jnU90qSZoKr2+ee44b8LV/\nWFcew62whz+QEh+CCSaol/kjwJjOxnL4hTZHT75fAoGBAKglNrcRunLomPmTMIHR\nFfYgpq8DCTT7UaK/QCYB6kulY0U3ln7oF2VuM0Ol6BeJAO95wb5iTZlJucJqnqDt\nrV4rAu1jCxkAicDoZJwz3gz/oAwhOHrntNXbPPv7xwYmdmtB++Uopx0Xia4aiYTc\n78m1DJ3dttnIFD2pXQc79gFS\n-----END PRIVATE KEY-----\n",
+  "client_email": "digital-smart-secretary-fnij@digital-smart-secretary-fnij.iam.gserviceaccount.com",
+  "client_id": "116938797590775527037",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/digital-smart-secretary-fnij%40digital-smart-secretary-fnij.iam.gserviceaccount.com"
+}
