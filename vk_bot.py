@@ -1,10 +1,11 @@
 import logging
 import os
 import random
+
 import vk_api
 from dotenv import load_dotenv
 from google.cloud import dialogflow
-from vk_api.longpoll import VkLongPoll, VkEventType
+from vk_api.longpoll import VkEventType, VkLongPoll
 
 
 def detect_intent_text(project_id, session_id, text, language_code):

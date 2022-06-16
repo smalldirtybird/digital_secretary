@@ -1,11 +1,11 @@
 import logging
 import os
-from pprint import pprint
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
-from telegram import ForceReply, Update
-from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram import Update
+from telegram.ext import (Application, CommandHandler, ContextTypes,
+                          MessageHandler, filters)
 
 
 def detect_intent_text(project_id, session_id, text, language_code):
@@ -20,7 +20,7 @@ def detect_intent_text(project_id, session_id, text, language_code):
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(rf'Здравствуйте')
+    await update.message.reply_text('Здравствуйте')
 
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
