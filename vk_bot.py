@@ -15,19 +15,21 @@ def detect_intent_text(project_id, session_id, text, language_code):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
         )
-    return response.query_result.fulfillment_text
+    if not response.query_result.intent.is_fallback:
+        return response.query_result.fulfillment_text
 
 
-def echo(event, vk_api):
+def answer(vk_event, vk_api):
     intent = detect_intent_text(project_id=df_project_id,
                                 session_id=df_session_id,
-                                text=event.text,
+                                text=vk_event.text,
                                 language_code='ru_RU')
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=intent,
-        random_id=random.randint(1, 1000)
-    )
+    if intent:
+        vk_api.messages.send(
+            user_id=vk_event.user_id,
+            message=intent,
+            random_id=random.randint(1, 1000)
+        )
 
 
 if __name__ == '__main__':
@@ -44,4 +46,4 @@ if __name__ == '__main__':
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api)
+            answer(event, vk_api)
