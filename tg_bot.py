@@ -1,5 +1,6 @@
 import logging
 import os
+import traceback
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
@@ -31,6 +32,12 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(intent)
 
 
+async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = os.environ['TELEGRAM_CHAT_ID']
+    message = f'TG bot crushed with exception:\n{traceback.format_exc()}'
+    await context.bot.send_message(chat_id=chat_id, text=message)
+
+
 if __name__ == '__main__':
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -43,4 +50,5 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('start', start))
     application.add_handler(MessageHandler(
         filters.TEXT & ~filters.COMMAND, answer))
+    application.add_error_handler(error_handler)
     application.run_polling()
