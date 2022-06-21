@@ -24,10 +24,6 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_markdown_v2('Здравствуйте')
 
 
-def help_command(update: Update, context: CallbackContext):
-    update.message.reply_text('Help!')
-
-
 def answer(update: Update, context: CallbackContext):
     intent = detect_intent_text(project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
                                 session_id=os.environ['DIALOGFLOW_SESSION_ID'],
@@ -36,7 +32,7 @@ def answer(update: Update, context: CallbackContext):
     update.message.reply_text(intent)
 
 
-def error_handler(update: object, context: CallbackContext) -> None:
+def error_handler(update: object, context: CallbackContext):
     logging.error(traceback.format_exc())
     message = f'TG bot crushed with exception:\n{traceback.format_exc()}'
     context.bot.send_message(
