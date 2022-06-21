@@ -7,3 +7,9 @@ This bot will answer frequently asked questions automatically due to neural netw
 ## How it works:
 
 Having received a message via [Telegram](https://t.me/SmartSecretaryBot) or [VK](https://vk.com/im?media=&sel=-213965547), the bot will try to answer it automatically, processing it using the [Dialogflow](https://dialogflow.cloud.google.com/) service. In case of failure, the bot will ask you to ask a question more correctly in Telegram, or provide an opportunity to answer the question to the operator in VK.
+
+Examples of working bots are available at the links in the titlesю
+
+## What is [Dialogflow](https://dialogflow.cloud.google.com/)
+
+[Dialogflow](https://dialogflow.cloud.google.com/) is a natural language recognition cloud service. Digital secretary bots interact with it via an API to find answers to frequently asked questions.
