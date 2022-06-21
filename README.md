@@ -1,6 +1,6 @@
 # Digital smart secretary
 
-![](//placehold.it/150x100)
+![](https://psv4.userapi.com/c240331/u328907/docs/d48/fb2292df8f5d/secretary_tg_demo.gif?extra=kBiH-uR6-L7BvIZrDYC8OF5df9lKSgV6Bu20GV7H_s2tUJkz3boUYfC2azdw2z2o2AGPQlMqZCT2Fa4I2z7IJHN2qoRpZKsfWc_JYOjBgAcmiyTUlJZDxaJyT7CuoTy4qmdygrw_o2JtoMb0Sg)
 
 This bot will answer frequently asked questions automatically due to neural network learning.
  
