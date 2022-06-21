@@ -65,6 +65,5 @@ if __name__ == '__main__':
                     answer(vk_event, vk_api)
         except Exception as error:
             logging.error(traceback.format_exc())
-            print(f'VK bot crushed with exception:\n{traceback.format_exc()}')
-            logger.error(f'VK bot crushed with exception:\n{traceback.format_exc()}')
-
+            logger.error(
+                f'VK bot crushed with exception:\n{traceback.format_exc()}')

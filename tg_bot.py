@@ -5,7 +5,8 @@ import traceback
 from dotenv import load_dotenv
 from google.cloud import dialogflow
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import (CallbackContext, CommandHandler, Filters,
+                          MessageHandler, Updater)
 
 
 def detect_intent_text(project_id, session_id, text, language_code):
@@ -38,7 +39,8 @@ def answer(update: Update, context: CallbackContext):
 def error_handler(update: object, context: CallbackContext) -> None:
     logging.error(traceback.format_exc())
     message = f'TG bot crushed with exception:\n{traceback.format_exc()}'
-    context.bot.send_message(chat_id=os.environ['TELEGRAM_CHAT_ID'], text=message)
+    context.bot.send_message(
+        chat_id=os.environ['TELEGRAM_CHAT_ID'], text=message)
 
 
 if __name__ == '__main__':
@@ -52,7 +54,8 @@ if __name__ == '__main__':
     updater = Updater(tg_bot_token)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, answer))
+    dispatcher.add_handler(MessageHandler(
+        Filters.text & ~Filters.command, answer))
     dispatcher.add_error_handler(error_handler)
     updater.start_polling()
     updater.idle()
