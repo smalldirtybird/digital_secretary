@@ -5,8 +5,7 @@ import traceback
 from dotenv import load_dotenv
 from google.cloud import dialogflow
 from telegram import Update
-from telegram.ext import (Application, CommandHandler, ContextTypes,
-                          MessageHandler, filters)
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 
 def detect_intent_text(project_id, session_id, text, language_code):
@@ -20,35 +19,40 @@ def detect_intent_text(project_id, session_id, text, language_code):
     return response.query_result.fulfillment_text
 
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('Здравствуйте')
+def start(update: Update, context: CallbackContext):
+    update.message.reply_markdown_v2('Здравствуйте')
 
 
-async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def help_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Help!')
+
+
+def answer(update: Update, context: CallbackContext):
     intent = detect_intent_text(project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
                                 session_id=os.environ['DIALOGFLOW_SESSION_ID'],
                                 text=update.message.text,
                                 language_code='ru_RU')
-    await update.message.reply_text(intent)
+    update.message.reply_text(intent)
 
 
-async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
-    chat_id = os.environ['TELEGRAM_CHAT_ID']
+def error_handler(update: object, context: CallbackContext) -> None:
+    logging.error(traceback.format_exc())
     message = f'TG bot crushed with exception:\n{traceback.format_exc()}'
-    await context.bot.send_message(chat_id=chat_id, text=message)
+    context.bot.send_message(chat_id=os.environ['TELEGRAM_CHAT_ID'], text=message)
 
 
 if __name__ == '__main__':
     logging.basicConfig(
+        filename='tg_bot.log',
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        level=logging.INFO
+        level=logging.ERROR
         )
-    logger = logging.getLogger(__name__)
     load_dotenv()
     tg_bot_token = os.environ['TELEGRAM_BOT_TOKEN']
-    application = Application.builder().token(tg_bot_token).build()
-    application.add_handler(CommandHandler('start', start))
-    application.add_handler(MessageHandler(
-        filters.TEXT & ~filters.COMMAND, answer))
-    application.add_error_handler(error_handler)
-    application.run_polling()
+    updater = Updater(tg_bot_token)
+    dispatcher = updater.dispatcher
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, answer))
+    dispatcher.add_error_handler(error_handler)
+    updater.start_polling()
+    updater.idle()
