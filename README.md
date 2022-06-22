@@ -72,3 +72,28 @@ Bot can be launched from the terminal with the commands:
 Telegram bot:`$ python3 tg_bot.py`
 
 VK bot: `$ python3 vg_bot.py`
+
+
+## Learning the bot to answer new questions
+
+1. Prepare JSON file with questions and answers according to the sample:
+```
+{
+    "<question subject_1>": {
+        "questions": [
+            "<question_1>",
+            "<question_2>"
+        ],
+        "answer": "<answer_value>"
+    },
+    "<question subject_2>": {
+        "questions": [
+            "<question_1>",
+            "<question_2>"
+        ],
+        "answer": "<answer_value>"
+    },
+}
+```
+Save this file in JSON format (use Notepad++).
+2. Run from terminal command `$ python3 dialogflow_learning.py -f ./questions.json` where `-f` argument is the path to JSON file from step 1.
