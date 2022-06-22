@@ -3,9 +3,9 @@ import os
 import random
 import traceback
 
+import dialogflow_api
 import vk_api
 from dotenv import load_dotenv
-from google.cloud import dialogflow
 from telegram import Bot
 from vk_api.longpoll import VkEventType, VkLongPoll
 
@@ -22,26 +22,16 @@ class TelegramLogsHandler(logging.Handler):
         self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
-def detect_intent_text(project_id, session_id, text, language_code):
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-    text_input = dialogflow.TextInput(text=text, language_code=language_code)
-    query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input}
-        )
-    if not response.query_result.intent.is_fallback:
-        return response.query_result.fulfillment_text
-
-
 def answer(event, api):
-    intent = detect_intent_text(project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
-                                session_id=os.environ['DIALOGFLOW_SESSION_ID'],
-                                text=vk_event.text,
-                                language_code='ru_RU')
-    if intent:
+    is_fallback, intent_text = dialogflow_api.detect_intent_text(
+        project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
+        session_id=os.environ['DIALOGFLOW_SESSION_ID'],
+        text=vk_event.text,
+        language_code='ru_RU'
+        )
+    if not is_fallback:
         api.messages.send(user_id=event.user_id,
-                          message=intent,
+                          message=intent_text,
                           random_id=random.randint(1, 1000))
 
 
