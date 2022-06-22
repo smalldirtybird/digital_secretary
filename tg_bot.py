@@ -2,22 +2,11 @@ import logging
 import os
 import traceback
 
+import dialogflow_api
 from dotenv import load_dotenv
-from google.cloud import dialogflow
 from telegram import Update
 from telegram.ext import (CallbackContext, CommandHandler, Filters,
                           MessageHandler, Updater)
-
-
-def detect_intent_text(project_id, session_id, text, language_code):
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-    text_input = dialogflow.TextInput(text=text, language_code=language_code)
-    query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input}
-        )
-    return response.query_result.fulfillment_text
 
 
 def start(update: Update, context: CallbackContext):
@@ -25,11 +14,13 @@ def start(update: Update, context: CallbackContext):
 
 
 def answer(update: Update, context: CallbackContext):
-    intent = detect_intent_text(project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
-                                session_id=os.environ['DIALOGFLOW_SESSION_ID'],
-                                text=update.message.text,
-                                language_code='ru_RU')
-    update.message.reply_text(intent)
+    is_fallback, intent_text = dialogflow_api.detect_intent_text(
+        project_id=os.environ['DIALOGFLOW_PROJECT_ID'],
+        session_id=os.environ['DIALOGFLOW_SESSION_ID'],
+        text=update.message.text,
+        language_code='ru_RU'
+        )
+    update.message.reply_text(intent_text)
 
 
 def error_handler(update: object, context: CallbackContext):
