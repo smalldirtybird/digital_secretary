@@ -26,7 +26,7 @@ def create_intent(
     )
 
 
-def get_arguments():
+def get_folder_path_argument():
     parser = argparse.ArgumentParser(
         description='It\'s a script for upload new intents to Dialogflow.')
     parser.add_argument('-f', '--folder', help='''
@@ -34,24 +34,19 @@ def get_arguments():
                         with intents, answers and questions.
                         '''
                         )
-    parser.add_argument('-in', '--intent_name', help='''
-                        Input intent name from json file which
-                        should be uploaded to Dialogflow.
-                        '''
-                        )
     args = parser.parse_args()
-    return args.folder, args.intent_name
+    return args.folder
 
 
 if __name__ == '__main__':
     load_dotenv()
-    file_path, intent_name = get_arguments()
+    file_path = get_folder_path_argument()
     df_project_id = os.environ['DIALOGFLOW_PROJECT_ID']
     with open(os.path.normpath(file_path), 'r') as questions_json:
         questions_content = json.load(questions_json)
-    content = questions_content[intent_name]
-    create_intent(project_id=df_project_id,
-                  display_name=intent_name,
-                  training_phrases_parts=content['questions'],
-                  message_texts=[content['answer']]
-                  )
+    for intent_name, content in questions_content.items():
+        create_intent(project_id=df_project_id,
+                      display_name=intent_name,
+                      training_phrases_parts=content['questions'],
+                      message_texts=[content['answer']]
+                      )
